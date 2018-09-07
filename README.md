@@ -20,6 +20,12 @@ The customer interface (bamazonCustomer.js) prints a table to the terminal with 
 
 The Manager interface (bamazonManager.js) lets managers view the products, view items with low (<5) stock, update their stock quantity, and add new products.
 
+## Bamazon Supervisor
+
+![Bamazon Supervisor GIF](images/bamazonSupervisor.gif)
+
+The Supervisor interface (bamazonSupervisor.js) lets supervisors view the departments with their total product sales, and profit. As well as add new departments.
+
 ## Built With
 * Javascript
 * Node

@@ -49,7 +49,7 @@ function departmentSales(){
 
             var table = new Table({ head: ['Department ID', 'Department Name', 'Over Head Costs', 'Product Sales', 'Total Profit'] });
             res.forEach(elem => {
-                table.push([elem.department_id, elem.department_name, elem.over_head_cost, elem.department_sales, elem.department_profit]);
+                table.push([elem.department_id, elem.department_name, elem.over_head_cost, String(elem.department_sales), String(elem.department_profit)]);
             });
             console.log("\n" + table.toString());
             menu();
