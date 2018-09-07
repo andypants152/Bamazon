@@ -61,9 +61,11 @@ function buyItem(item, purchaseQuantity) {
         function(err, res){
             if (err) throw err;
             if(res[0].stock_quantity >= purchaseQuantity){
-
-                connection.query("UPDATE products SET stock_quantity=" + (res[0].stock_quantity - purchaseQuantity) + " WHERE item_id=" + item);
-                console.log("Successfully purchased " + res[0].product_name +"\nTotal Cost: $" + res[0].price * purchaseQuantity);
+                var cost = res[0].price * purchaseQuantity;
+                var totalSales = res[0].product_sales + cost;
+                console.log(totalSales);
+                connection.query("UPDATE products SET stock_quantity=" + (res[0].stock_quantity - purchaseQuantity) + ", product_sales=" + totalSales + " WHERE item_id=" + item);
+                console.log("Successfully purchased " + res[0].product_name +"\nTotal Cost: $" + cost);
             }
             else{
                 console.log("Insufficent Stock for purchase!")
