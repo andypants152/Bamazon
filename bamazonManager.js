@@ -96,43 +96,53 @@ function addStock() {
                 if (err) throw err;
                 var updatedStock = parseInt(resp[0].stock_quantity) + parseInt(answer.quantity);
                 connection.query("UPDATE products SET stock_quantity=" + updatedStock + " WHERE item_id=" + answer.id,
-            function(err, res){
-                if (err) throw err;
-                console.log("Stock Updated!")
-                menu();
-            })
+                    function (err, res) {
+                        if (err) throw err;
+                        console.log("Stock Updated!")
+                        menu();
+                    })
             })
     })
 
 }
 
 function addProduct() {
-    inquirer.prompt([{
-        message: "What's the name of the new product?",
-        name: "productName",
-    },{
-        message: "What's the department?",
-        name: "departmentName"
-    },{
-        message: "What's the price?",
-        name: "price"
-    },{
-        message: "What's the initial stock?",
-        name: "stock"
-    }]).then(function(answers){
-        connection.query(
-            "INSERT INTO products SET ?",
-            {
-                product_name: answers.productName,
-                department_name: answers.departmentName,
-                price: answers.price, 
-                stock_quantity: answers.stock
-            },
-            function(err, resp){
-                if (err) throw err;
-                console.log("Product Added!");
-                menu();
-            }
-        )
+    connection.query("SELECT department_name FROM departments", function (err, resp) {
+        if (err) throw err;
+        var departments = [];
+        resp.forEach(function (elem) {
+            departments.push(elem.department_name);
+        })
+
+        inquirer.prompt([{
+            message: "What's the name of the new product?",
+            name: "productName",
+        }, {
+            type: "list",
+            message: "What's the department?",
+            choices: departments,
+            name: "departmentName"
+        }, {
+            message: "What's the price?",
+            name: "price"
+        }, {
+            message: "What's the initial stock?",
+            name: "stock"
+        }]).then(function (answers) {
+            connection.query(
+                "INSERT INTO products SET ?",
+                {
+                    product_name: answers.productName,
+                    department_name: answers.departmentName,
+                    price: answers.price,
+                    stock_quantity: answers.stock
+                },
+                function (err, resp) {
+                    if (err) throw err;
+                    console.log("Product Added!");
+                    menu();
+                }
+            )
+        })
     })
 }
