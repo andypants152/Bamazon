@@ -8,11 +8,17 @@ Once you've cloned the repository, you'll need to install the required node pack
 
 You'll also need a MySQL instance to setup a bamazonDB on with the provided schema.sql, and optionally fill it with some products from seed.sql.
 
-##Bamazon Customer
+## Bamazon Customer
 
-![Bamazon Customer](images/bamazonCustomer.gif)
+![Bamazon Customer GIF](images/bamazonCustomer.gif)
 
-The customer interface prints a table to the terminal with the list of products. Taking in orders by item ID, and quantity. Updating the user if there isn't enough in stock or updating the stock and listing the purchase total.
+The customer interface (bamazonCustomer.js) prints a table to the terminal with the list of products. Taking in orders by item ID, and quantity. Updating the user if there isn't enough in stock or updating the stock and listing the purchase total.
+
+## Bamazon Manager
+
+![Bamazon Manager GIF](images/bamazonManager.gif)
+
+The Manager interface (bamazonManager.js) lets managers view the products, view items with low (<5) stock, update their stock quantity, and add new products.
 
 ## Built With
 * Javascript

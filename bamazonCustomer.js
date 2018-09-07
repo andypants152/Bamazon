@@ -63,7 +63,7 @@ function buyItem(item, purchaseQuantity) {
             if(res[0].stock_quantity >= purchaseQuantity){
 
                 connection.query("UPDATE products SET stock_quantity=" + (res[0].stock_quantity - purchaseQuantity) + " WHERE item_id=" + item);
-                console.log("Successfully purchased " + res.product_name +"\nTotal Cost: $" + res[0].price * purchaseQuantity);
+                console.log("Successfully purchased " + res[0].product_name +"\nTotal Cost: $" + res[0].price * purchaseQuantity);
             }
             else{
                 console.log("Insufficent Stock for purchase!")
