@@ -20,11 +20,15 @@ connection.connect(function (err) {
 });
 
 function menu(){
-    listItems();
+    var items = listItems();
     inquirer.prompt([{
-
+        message: "What product would you like to purchase?",
+        name: "choice"
+    },{
+        message: "How many would you like to buy?",
+        name: "num"
     }]).then(function(answer){
-
+        buyItem(answer.choice, answer.num);
     })
 }
 
@@ -49,4 +53,22 @@ function listItems() {
 
         }
     );
+}
+
+function buyItem(item, purchaseQuantity) {
+    connection.query(
+        "SELECT * FROM products WHERE item_id=" + item,
+        function(err, res){
+            if (err) throw err;
+            if(res[0].stock_quantity >= purchaseQuantity){
+
+                connection.query("UPDATE products SET stock_quantity=" + (res[0].stock_quantity - purchaseQuantity) + " WHERE item_id=" + item);
+                console.log("Successfully purchased " + res.product_name +"\nTotal Cost: $" + res[0].price * purchaseQuantity);
+            }
+            else{
+                console.log("Insufficent Stock for purchase!")
+            }
+            menu();
+        }
+    )
 }
